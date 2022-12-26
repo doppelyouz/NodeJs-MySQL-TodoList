@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/doppelyouz/NodeJs-MySQL-TodoList#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.28.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

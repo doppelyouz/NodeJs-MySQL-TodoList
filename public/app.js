@@ -20,7 +20,18 @@ new Vue({
           done: false,
           date: new Date()
         })
-        this.todoTitle = ''
+        fetch('/api/todo', {
+          method: 'post',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify({title})
+        })
+        .then(res => res.json())
+        .then(({todo}) => {
+          console.log(todo);
+          this.todos.push(todo);
+          this.todoTitle = ''
+        })
+        .catch(e => console.log(e))
       },
       removeTodo(id) {
         this.todos = this.todos.filter(t => t.id !== id)

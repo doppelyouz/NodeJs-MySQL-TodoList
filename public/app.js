@@ -8,18 +8,22 @@ new Vue({
         todos: []
       }
     },
+    created() {
+      fetch('/api/todo', {
+        method: 'get'
+      })
+      .then(res => res.json())
+      .then(todos => {
+        this.todos = todos;
+      })
+      .catch()
+    },
     methods: {
       addTodo() {
         const title = this.todoTitle.trim()
         if (!title) {
-          return
+          return;
         }
-        this.todos.push({
-          title: title,
-          id: Math.random(),
-          done: false,
-          date: new Date()
-        })
         fetch('/api/todo', {
           method: 'post',
           headers: {'Content-Type' : 'application/json'},
@@ -28,6 +32,7 @@ new Vue({
         .then(res => res.json())
         .then(({todo}) => {
           console.log(todo);
+
           this.todos.push(todo);
           this.todoTitle = ''
         })
@@ -41,12 +46,18 @@ new Vue({
       capitalize(value) {
         return value.toString().charAt(0).toUpperCase() + value.slice(1)
       },
-      date(value) {
-        return new Intl.DateTimeFormat('ru-RU', {
-          year: 'numeric',
-          month: 'long',
-          day: '2-digit'
-        }).format(new Date(value))
+      date(value, withTime) {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit'
+        }
+        if(withTime) {
+          options.hour = '2-digit';
+          options.minute = '2-digit';
+          options.second = '2-digit';
+        }
+        return new Intl.DateTimeFormat('ru-RU',   ).format(new Date(value))
       }
     }
   })

@@ -9,15 +9,11 @@ const todo = sequelize.define('Todo', {
         type: Sequelize.INTEGER 
     }, 
     done: {
-        type: Sequelize.BOOLEAN ,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
     },
     title: {
         type: Sequelize.STRING,
-        allowNull: false
-    },
-    date: {
-        type: Sequelize.DATE,
         allowNull: false
     }
 });
